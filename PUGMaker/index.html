@@ -1,0 +1,428 @@
+<html><head><base href="/">
+<title>PUG Generator by Nuti</title>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  body {
+    background: #1b1b1b;
+    color: #fff;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  .header {
+    text-align: center;
+    padding: 40px 0;
+    background: linear-gradient(45deg, #ff4655, #0f1923);
+    margin-bottom: 30px;
+    border-radius: 10px;
+  }
+
+  .game-modes {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 30px;
+  }
+
+  .mode-card {
+    flex: 1;
+    background: #2d2d2d;
+    padding: 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.3s;
+  }
+
+  .mode-card:hover {
+    transform: translateY(-5px);
+    background: #3d3d3d;
+  }
+
+  .mode-card.active {
+    border: 2px solid #ff4655;
+  }
+  .maps-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+  }
+
+  .map-card {
+    background: #2d2d2d;
+    padding: 15px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .map-card:hover {
+    transform: scale(1.05);
+  }
+
+  .map-card.selected {
+    border: 2px solid #ff4655;
+  }
+
+  .map-image {
+    width: 100%;
+    height: 150px;
+    background-position: center;
+    background-size: cover;
+    border-radius: 5px;
+    margin-bottom: 10px;
+  }
+
+  .generate-btn, .select-captains-btn, .next-pick-btn {
+    background: #ff4655;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    margin-top: 30px;
+    transition: background 0.3s;
+  }
+
+  .generate-btn:hover, .select-captains-btn:hover, .next-pick-btn:hover {
+    background: #ff5c69;
+  }
+
+  .result, .team-maker {
+    margin-top: 30px;
+    padding: 20px;
+    background: #2d2d2d;
+    border-radius: 10px;
+  }
+
+  .player-input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    background: #3d3d3d;
+    border: none;
+    border-radius: 5px;
+    color: white;
+  }
+
+  .teams-display {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+  }
+
+  .team {
+    flex: 1;
+    padding: 15px;
+    background: #3d3d3d;
+    border-radius: 5px;
+  }
+
+  .player-list {
+    margin-top: 10px;
+    padding: 10px;
+    background: #4d4d4d;
+    border-radius: 5px;
+  }
+
+  .player-item {
+    padding: 5px;
+    margin: 5px 0;
+    cursor: pointer;
+    border-radius: 3px;
+  }
+
+  .player-item:hover {
+    background: #5d5d5d;
+  }
+
+  .captain {
+    color: #ff4655;
+    font-weight: bold;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>Nuti's PUG Generator</h1>
+    <p>Generate custom games for 2v2 or 5v5 hvh matches</p>
+  </div>
+
+  <div class="game-modes">
+    <div class="mode-card" data-mode="2v2">
+      <h2>2v2 Wingman</h2>
+      <p>Short format competitive matches</p>
+    </div>
+    <div class="mode-card" data-mode="5v5">
+      <h2>5v5 Competitive</h2>
+      <p>Full competitive matches</p>
+    </div>
+  </div>
+
+  <div class="team-maker">
+    <h2>Team Maker</h2>
+    <textarea class="player-input" placeholder="Enter player names (one per line)" rows="5"></textarea>
+    <button class="select-captains-btn">Select Captains</button>
+    <button class="next-pick-btn" style="display: none;">Next Pick</button>
+    
+    <div class="teams-display">
+      <div class="team">
+        <h3>Team 1</h3>
+        <div class="team1-players player-list"></div>
+      </div>
+      <div class="team">
+        <h3>Team 2</h3>
+        <div class="team2-players player-list"></div>
+      </div>
+    </div>
+    
+    <div class="remaining-players player-list"></div>
+  </div>
+<br>
+  <div class="maps-container" id="mapPool">
+    <!-- Maps will be populated by JavaScript -->
+  </div>
+
+  <!-- <button class="generate-btn">Generate Match</button> -->
+
+  <div class="result" style="display: none;">
+    <h2>Generated Match:</h2>
+    <div id="matchResult"></div>
+  </div>
+</div>
+
+<script>const maps = {
+  '2v2': [{
+    name: 'Vertigo',
+    image: 'https://static.wikia.nocookie.net/cswikia/images/8/88/De_vertigo_cs2.jpg/revision/latest/scale-to-width-down/1200?cb=20231009185617'
+  }, {
+    name: 'ShortNuke',
+    image: 'https://steamuserimages-a.akamaihd.net/ugc/918049276003492338/300881C3587F245FF1B717092DF93836A1DD6E9D/?imw=512&&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false'
+  }, {
+    name: 'Overpass',
+    image: 'https://steamcdn-a.akamaihd.net/apps/csgo/blog/images/posts/OverpassUpdate/overpass3b.jpg'
+  }, {
+    name: 'Bank',
+    image: 'https://static.wikia.nocookie.net/cswikia/images/a/a9/Csgo-de-bank.png/revision/latest/scale-to-width-down/1200?cb=20140820131729'
+  }, {
+    name: 'Train',
+    image: 'https://cdn.akamai.steamstatic.com/apps/csgo/images/reintroducing_train/ASiteOverview-new.jpg'
+  }, {
+    name: 'Stmarc',
+    image: 'https://static.wikia.nocookie.net/cswikia/images/e/ef/Stmarc02.jpg/revision/latest?cb=20120321040147'
+  }, {
+    name: 'Cobble',
+    image: 'https://cs.money/ru/blog/wp-content/uploads/2022/02/b.png'
+  }, {
+    name: 'Inferno',
+    image: 'https://upload.wikimedia.org/wikipedia/en/6/65/Inferno_%28CSGO%29.png'
+  }, {
+    name: 'Shortdust',
+    image: 'https://static.wikia.nocookie.net/cswikia/images/5/5c/De_shortdust_cs2.jpg/revision/latest?cb=20230608160821'
+  }, {
+    name: 'Lake',
+    image: 'https://static.wikia.nocookie.net/cswikia/images/4/4f/De_lake_cs2.jpg/revision/latest?cb=20230701154845'
+  }],
+  '5v5': [{
+    name: 'Mirage',
+    image: 'https://static.wikia.nocookie.net/cswikia/images/f/f5/De_mirage_cs2.png/revision/latest?cb=20230807124319'
+  }, {
+    name: 'Train',
+    image: 'https://i.ytimg.com/vi/SExLbBe2BlY/maxresdefault.jpg'
+  }, {
+    name: 'Dust2',
+    image: 'https://static.wikia.nocookie.net/cswikia/images/4/4e/CSGO_Dust_2_10th_June_2020_update_Mid_pic_2.jpg/revision/latest/scale-to-width-down/1920?cb=20200615143313'
+  }, {
+    name: 'Inferno',
+    image: 'https://cdn.akamai.steamstatic.com/apps/csgo/images/inferno/beautyshot.jpg'
+  }, {
+    name: 'Cobble',
+    image: 'https://cs.money/ru/blog/wp-content/uploads/2022/02/a.jpg'
+  }, {
+    name: 'Overpass',
+    image: 'https://cdn.mos.cms.futurecdn.net/548230371ddaecc2de88bf0ae9cf12c5.jpg'
+  }, {
+    name: 'Nuke',
+    image: 'https://static.wikia.nocookie.net/cswikia/images/d/d6/De_nuke_cs2.png/revision/latest/scale-to-width-down/1200?cb=20240426010253'
+  }, {
+    name: 'Vertigo',
+    image: 'https://liquipedia.net/commons/images/thumb/5/59/Csgo_de_vertigo_new.jpg/600px-Csgo_de_vertigo_new.jpg'
+  }]
+};
+let currentMode = '5v5';
+let selectedMaps = new Set();
+let players = [];
+let team1 = [];
+let team2 = [];
+let remainingPlayers = [];
+let currentTurn = 1;
+let pickPhase = false;
+let vetoPhase = false;
+let vetoTurn = 1;
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+}
+function updateTeamDisplay() {
+  const team1Display = document.querySelector('.team1-players');
+  const team2Display = document.querySelector('.team2-players');
+  const remainingDisplay = document.querySelector('.remaining-players');
+  team1Display.innerHTML = team1.map(player => `<div class="player-item${team1.indexOf(player) === 0 ? ' captain' : ''}">${player}</div>`).join('');
+  team2Display.innerHTML = team2.map(player => `<div class="player-item${team2.indexOf(player) === 0 ? ' captain' : ''}">${player}</div>`).join('');
+  if (pickPhase) {
+    remainingDisplay.innerHTML = `
+      <h3>${currentTurn === 1 ? team1[0] : team2[0]}'s turn to pick:</h3>
+      ${remainingPlayers.map(player => `<div class="player-item" onclick="pickPlayer('${player}')">${player}</div>`).join('')}
+    `;
+  } else if (vetoPhase) {
+    remainingDisplay.innerHTML = `
+      <h3>${currentTurn === 1 ? team1[0] : team2[0]}'s turn to veto a map</h3>
+    `;
+  }
+}
+function pickPlayer(player) {
+  if (!pickPhase) return;
+  const playerIndex = remainingPlayers.indexOf(player);
+  if (playerIndex === -1) return;
+  if (currentTurn === 1) {
+    team1.push(player);
+    currentTurn = 2;
+  } else {
+    team2.push(player);
+    currentTurn = 1;
+  }
+  remainingPlayers.splice(playerIndex, 1);
+  updateTeamDisplay();
+  if (remainingPlayers.length === 0) {
+    document.querySelector('.next-pick-btn').style.display = 'none';
+    document.querySelector('.team-maker').style.display = 'none';
+    pickPhase = false;
+    vetoPhase = true;
+    maps[currentMode].forEach(map => selectedMaps.add(map.name));
+    currentTurn = 1;
+    updateTeamDisplay();
+    updateMapPool();
+  }
+}
+function vetoMap(mapName) {
+  if (!vetoPhase) return;
+  selectedMaps.delete(mapName);
+  updateMapPool();
+  if (selectedMaps.size === 1) {
+    vetoPhase = false;
+    document.getElementById('mapPool').style.display = 'none';
+    const finalMap = Array.from(selectedMaps)[0];
+    const result = document.querySelector('.result');
+    const matchResult = document.getElementById('matchResult');
+    result.style.display = 'block';
+    matchResult.innerHTML = `
+      <p>Mode: ${currentMode}</p>
+      <p>Selected Map: ${finalMap}</p>
+      <h3>Teams:</h3>
+      <div class="teams-display">
+        <div class="team">
+          <h4>Team 1 (CT)</h4>
+          <div>${team1.join('<br>')}</div>
+        </div>
+        <div class="team">
+          <h4>Team 2 (T)</h4>
+          <div>${team2.join('<br>')}</div>
+        </div>
+      </div>
+    `;
+  } else {
+    currentTurn = currentTurn === 1 ? 2 : 1;
+    updateTeamDisplay();
+  }
+}
+document.querySelector('.select-captains-btn').addEventListener('click', () => {
+  const playerInput = document.querySelector('.player-input').value;
+  players = playerInput.split('\n').map(p => p.trim()).filter(p => p);
+  if (currentMode === '5v5' && players.length < 10) {
+    alert('Need at least 10 players for 5v5!');
+    return;
+  } else if (currentMode === '2v2' && players.length < 4) {
+    alert('Need at least 4 players for 2v2!');
+    return;
+  }
+  shuffleArray(players);
+  team1 = [players[0]];
+  team2 = [players[1]];
+  remainingPlayers = players.slice(2);
+  pickPhase = true;
+  currentTurn = 1;
+  selectedMaps.clear();
+  document.querySelector('.next-pick-btn').style.display = 'inline-block';
+  updateTeamDisplay();
+});
+function updateMapPool() {
+  const mapPool = document.getElementById('mapPool');
+  mapPool.innerHTML = '';
+  maps[currentMode].forEach(map => {
+    const mapCard = document.createElement('div');
+    mapCard.className = 'map-card';
+    if (selectedMaps.has(map.name)) mapCard.classList.add('selected');
+    mapCard.innerHTML = `
+      <div class="map-image" style="background: url('${map.image}') no-repeat center; background-size: contain;"></div>
+      <h3>${map.name}</h3>
+    `;
+    mapCard.addEventListener('click', () => {
+      if (vetoPhase && selectedMaps.has(map.name)) {
+        vetoMap(map.name);
+      } else if (!pickPhase && !vetoPhase) {
+        if (selectedMaps.has(map.name)) {
+          selectedMaps.delete(map.name);
+          mapCard.classList.remove('selected');
+        } else {
+          selectedMaps.add(map.name);
+          mapCard.classList.add('selected');
+        }
+      }
+    });
+    mapPool.appendChild(mapCard);
+  });
+}
+document.querySelectorAll('.mode-card').forEach(card => {
+  card.addEventListener('click', () => {
+    document.querySelectorAll('.mode-card').forEach(c => c.classList.remove('active'));
+    card.classList.add('active');
+    currentMode = card.dataset.mode;
+    selectedMaps.clear();
+    updateMapPool();
+  });
+});
+document.querySelector('.generate-btn').addEventListener('click', () => {
+  if (selectedMaps.size === 0) {
+    alert('Please select at least one map!');
+    return;
+  }
+  const selectedMapArray = Array.from(selectedMaps);
+  const randomMap = selectedMapArray[Math.floor(Math.random() * selectedMapArray.length)];
+  const result = document.querySelector('.result');
+  const matchResult = document.getElementById('matchResult');
+  result.style.display = 'block';
+  matchResult.innerHTML = `
+    <p>Mode: ${currentMode}</p>
+    <p>Selected Map: ${randomMap}</p>
+    <p>Team 1: CT Side</p>
+    <p>Team 2: T Side</p>
+  `;
+});
+updateMapPool();
+document.querySelector('[data-mode="5v5"]').classList.add('active');</script>
+</body>
+</html>

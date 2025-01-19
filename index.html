@@ -1,0 +1,118 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SmoKkK</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="./config.js"></script>
+  <link rel="stylesheet" href="./styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="./loading.js"></script>
+  <script>
+    // Initialize loading screen before anything else
+    document.addEventListener('DOMContentLoaded', () => {
+      const loadingScreen = new LoadingScreen();
+      loadingScreen.hide();
+    });
+  </script>
+</head>
+<body class="bg-slate-900 text-gray-100 min-h-screen">
+  <div class="floating-shapes"></div>
+  
+  <main class="container mx-auto px-4 py-16 relative z-10">
+    <header class="text-center mb-16">
+      <div class="inline-block mb-4">
+        <i class="fas fa-code text-4xl text-blue-400 mb-4"></i>
+      </div>
+      <h1 class="text-5xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+        Nuti, The Creator
+      </h1>
+      <p class="text-xl text-gray-400"><i class="fas fa-laptop-code mr-2"></i>Creative Coder</p>
+    </header>
+
+    <!-- Terminal Section -->
+    <section class="max-w-3xl mx-auto mb-16">
+      <div class="terminal">
+        <div class="terminal-header p-2 flex items-center justify-between cursor-pointer" id="terminal-header">
+          <div class="flex items-center">
+            <div class="terminal-dot bg-red-500"></div>
+            <div class="terminal-dot bg-yellow-500"></div>
+            <div class="terminal-dot bg-green-500"></div>
+          </div>
+          <div class="flex items-center text-gray-400">
+            <i class="fas fa-terminal mr-2"></i>
+            <span class="text-sm">Terminal</span>
+            <i class="fas fa-chevron-down ml-2 transition-transform duration-300" id="terminal-toggle-icon"></i>
+          </div>
+          <div class="w-16"></div> <!-- Spacer for balance -->
+        </div>
+        <div class="p-6" id="terminal-content">
+          <!-- Terminal content will be populated by JavaScript -->
+        </div>
+      </div>
+    </section>
+
+    <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+      <!-- Project Cards -->
+      <article class="project-card">
+        <div class="relative group">
+          <div class="absolute -inset-1 bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg blur opacity-25 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
+          <div class="relative bg-slate-800 ring-1 ring-gray-900/5 rounded-lg leading-none p-6">
+            <i class="fas fa-rocket text-purple-400 text-2xl mb-4"></i>
+            <h3 class="text-xl font-semibold mb-4">Quoter</h3>
+            <p class="text-gray-400 mb-4">Fake quote generator of historical figures</p>
+            <a href="https://smokkk.github.io/Quoter/" class="text-blue-400 hover:text-blue-300 transition-colors">
+              <i class="fab fa-github mr-2"></i>View Project →
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <article class="project-card">
+        <div class="relative group">
+          <div class="absolute -inset-1 bg-gradient-to-r from-cyan-600 to-blue-600 rounded-lg blur opacity-25 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
+          <div class="relative bg-slate-800 ring-1 ring-gray-900/5 rounded-lg leading-none p-6">
+            <i class="fas fa-lightbulb text-cyan-400 text-2xl mb-4"></i>
+            <h3 class="text-xl font-semibold mb-4">JSON Playground</h3>
+            <p class="text-gray-400 mb-4">An innovative solution for making json configs</p>
+            <a href="https://smokkk.github.io/JSONPlayground/" class="text-blue-400 hover:text-blue-300 transition-colors">
+              <i class="fab fa-github mr-2"></i>View Project →
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <article class="project-card">
+        <div class="relative group">
+          <div class="absolute -inset-1 bg-gradient-to-r from-green-600 to-emerald-600 rounded-lg blur opacity-25 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
+          <div class="relative bg-slate-800 ring-1 ring-gray-900/5 rounded-lg leading-none p-6">
+            <i class="fas fa-cube text-emerald-400 text-2xl mb-4"></i>
+            <h3 class="text-xl font-semibold mb-4">CSGO Pug Maker</h3>
+            <p class="text-gray-400 mb-4">A pug maker for CSGO HVH</p>
+            <a href="hhttps://smokkk.github.io/PUGMaker/" class="text-blue-400 hover:text-blue-300 transition-colors">
+              <i class="fab fa-github mr-2"></i>View Project →
+            </a>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <footer class="mt-16 text-center">
+      <div class="space-x-6">
+        <a href="https://github.com/SmoKkK/" class="text-gray-400 hover:text-white transition-colors">
+          <i class="fab fa-github text-2xl"></i>
+        </a>
+        <a href="https://www.instagram.com/nuticreatorul/" class="text-gray-400 hover:text-white transition-colors">
+          <i class="fab fa-instagram text-2xl"></i>
+        </a>
+        <!-- <a href="https://twitter.com/yourusername" class="text-gray-400 hover:text-white transition-colors"> -->
+          <!-- <i class="fab fa-twitter text-2xl"></i> -->
+        <!-- </a> -->
+      </div>
+    </footer>
+  </main>
+
+  <script src="./terminal.js"></script>
+</body>
+</html>
