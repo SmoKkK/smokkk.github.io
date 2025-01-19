@@ -1,0 +1,45 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Intellectual Quote Generator</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Intellectual Quote Generator</h1>
+    
+    <div class="selector-section">
+      <div class="mode-toggle">
+        <button id="autoBtn" class="mode-btn active" onclick="toggleMode('auto')">Random Mode</button>
+        <button id="manualBtn" class="mode-btn" onclick="toggleMode('manual')">Choose Figure</button>
+      </div>
+      <select id="figureSelect" class="figure-select">
+        <!-- Options populated by JavaScript -->
+      </select>
+      <div id="categoryWarning" class="category-warning">
+        ⚠️ Warning: You have selected a controversial historical figure. Please be mindful of the content you create.
+      </div>
+    </div>
+    
+    <div class="input-section">
+      <textarea id="quoteInput" placeholder="Enter your profound thoughts here..."></textarea>
+      <button onclick="generateQuote()">Make it Intellectual™</button>
+    </div>
+
+    <div class="result-section">
+      <div id="quoteContainer" class="quote-container">
+        <div class="quote-image">
+          <img id="intellectualImage" alt="Intellectual" crossorigin="anonymous">
+          <div id="quoteText" class="quote-text"></div>
+          <div id="intellectualName" class="intellectual-name"></div>
+        </div>
+      </div>
+      <button id="downloadBtn" onclick="downloadQuote()" style="display: none;">Download Quote</button>
+    </div>
+  </div>
+  <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+  <script src="intellectuals.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
