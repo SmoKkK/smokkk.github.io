@@ -4,30 +4,62 @@ class LoadingScreen {
     this.loadingScreen.className = 'loading-screen';
     
     this.asciiCat = document.createElement('pre');
-    this.asciiCat.className = 'ascii-cat blink gradient-text';
+    this.asciiCat.className = 'ascii-cat gradient-text';
     
     // ASCII cat art with special spans for eyes
     this.asciiCat.innerHTML = `
       /\\___/\\
-(  <span class="eye">o</span> <span class="eye">o</span>  )
+(  <span class="eye left-eye">o</span> <span class="eye right-eye">o</span>  )
 (  =^=  )
 (     )
 |___|\n
+    Loading...
     `.trim();
     
     this.loadingScreen.appendChild(this.asciiCat);
     document.body.appendChild(this.loadingScreen);
+
+    // Start the blinking animation immediately
+    this.blinkInterval = null;
+    this.startBlinking();
+  }
+
+  startBlinking() {
+    // Initial blink
+    this.blink();
+    
+    // Set up interval for regular blinking
+    this.blinkInterval = setInterval(() => this.blink(), 3000);
+  }
+
+  blink() {
+    const eyes = this.loadingScreen.querySelectorAll('.eye');
+    eyes.forEach(eye => {
+      // Store original content
+      const original = eye.textContent;
+      // Change to blink
+      eye.textContent = '-';
+      // Set back to original after short delay
+      setTimeout(() => {
+        if (this.loadingScreen.parentNode) { // Check if element still exists
+          eye.textContent = original;
+        }
+      }, 100);
+    });
   }
 
   hide() {
-    // Wait for page content to be ready
     window.addEventListener('load', () => {
-      // Add a small delay for better visual effect
       setTimeout(() => {
+        // Clear the blink interval
+        if (this.blinkInterval) {
+          clearInterval(this.blinkInterval);
+        }
         this.loadingScreen.classList.add('fade-out');
-        // Remove from DOM after transition
         setTimeout(() => {
-          this.loadingScreen.remove();
+          if (this.loadingScreen.parentNode) {
+            this.loadingScreen.remove();
+          }
         }, 500);
       }, 1000);
     });
