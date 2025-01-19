@@ -1,0 +1,169 @@
+:root {
+  --primary-color: #2c3e50;
+  --secondary-color: #3498db;
+  --background-color: #f5f6fa;
+  --text-color: #2c3e50;
+  --error-color: #e74c3c;
+  --success-color: #2ecc71;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+nav {
+  background-color: var(--primary-color);
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.nav-buttons button {
+  background-color: var(--secondary-color);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  margin-left: 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.nav-buttons button:hover {
+  background-color: #2980b9;
+}
+
+main {
+  min-height: calc(100vh - 4rem);
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.editor-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.editor-wrapper, .visual-editor {
+  background: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  width: 100%;
+}
+
+h2 {
+  margin-bottom: 1rem;
+  color: var(--primary-color);
+}
+
+.CodeMirror {
+  height: 500px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+#blockEditor {
+  height: 500px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.output-container {
+  background: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+#outputDisplay {
+  min-height: 200px;
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  white-space: pre-wrap;
+}
+
+.error {
+  color: var(--error-color);
+}
+
+.success {
+  color: var(--success-color);
+}
+
+/* Dark mode styles for CodeMirror */
+.dark .CodeMirror {
+  background-color: #2d2d2d !important;
+  color: #f8f8f2 !important;
+  border-color: #404040;
+}
+
+.dark .CodeMirror-gutters {
+  background-color: #1a1a1a !important;
+  border-color: #404040;
+}
+
+.dark .CodeMirror-linenumber {
+  color: #888 !important;
+}
+
+/* Dark mode styles for Blockly */
+.dark .blocklyMainBackground {
+  fill: #2d2d2d !important;
+}
+
+.dark .blocklyToolboxDiv {
+  background-color: #1a1a1a !important;
+  color: #fff !important;
+}
+
+/* Dark mode enhancements */
+.dark body {
+  background-color: #1a1a1a;
+  color: #ffffff;
+}
+
+.dark .editor-wrapper,
+.dark .visual-editor,
+.dark .output-container {
+  background-color: #2d2d2d;
+  color: #ffffff;
+}
+
+.dark h2 {
+  color: #ffffff;
+}
+
+.dark #outputDisplay {
+  background-color: #1a1a1a;
+  border-color: #404040;
+  color: #ffffff;
+}
+
+/* Ensure text stays visible in dark mode */
+.dark .success {
+  color: #4ade80;
+}
+
+.dark .error {
+  color: #f87171;
+}

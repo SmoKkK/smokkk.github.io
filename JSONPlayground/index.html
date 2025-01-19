@@ -1,0 +1,84 @@
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JSON Playground & Validator</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/monokai.min.css" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            dark: {
+              DEFAULT: '#1a1a1a',
+              secondary: '#2d2d2d'
+            }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="dark:bg-dark transition-colors duration-200">
+  <nav class="fixed top-0 w-full bg-white dark:bg-dark-secondary shadow-lg z-50 transition-colors duration-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between h-16">
+        <div class="flex items-center">
+          <div class="flex-shrink-0 flex items-center">
+            <svg class="h-8 w-8 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"/>
+            </svg>
+            <h1 class="ml-3 text-xl font-bold text-gray-900 dark:text-white transition-colors">JSON Playground</h1>
+          </div>
+        </div>
+        <div class="flex items-center">
+          <div class="flex space-x-4 mr-6">
+            <button id="validateBtn" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors">
+              Validate JSON
+            </button>
+            <button id="formatBtn" class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition-colors">
+              Format JSON
+            </button>
+            <button id="clearBtn" class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition-colors">
+              Clear Editor
+            </button>
+          </div>
+          <button id="themeToggle" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+            <svg class="w-6 h-6 text-gray-800 dark:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+  
+  <main class="pt-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    <div class="editor-container">
+      <div class="visual-editor bg-white dark:bg-dark-secondary rounded-lg shadow-lg transition-colors">
+        <h2 class="text-xl font-bold mb-4 dark:text-white">Visual Editor</h2>
+        <div id="blockEditor"></div>
+      </div>
+      <div class="editor-wrapper bg-white dark:bg-dark-secondary rounded-lg shadow-lg transition-colors">
+        <h2 class="text-xl font-bold mb-4 dark:text-white">JSON Editor</h2>
+        <textarea id="jsonEditor"></textarea>
+      </div>
+    </div>
+    
+    <div class="output-container bg-white dark:bg-dark-secondary rounded-lg shadow-lg transition-colors">
+      <h2 class="text-xl font-bold mb-4 dark:text-white">Output & Validation Results</h2>
+      <div id="outputDisplay" class="dark:text-gray-200"></div>
+    </div>
+  </main>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/javascript/javascript.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/blockly/9.2.0/blockly.min.js"></script>
+  <script src="blocks.js"></script>
+  <script src="editor.js"></script>
+</body>
+</html>
