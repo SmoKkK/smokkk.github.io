@@ -41,4 +41,4 @@ The coders of the app were extremely grateful and friendly, a rare thing in toda
 
 ![empress's gratitude](https://i.imgur.com/mIlez6Q.png)
 
-In the end I want to express my sincere opinion: **Please for the love of god do not use keyauth ~in production-ready versions of your application~ actually please do not use it at all,** all you're doing is trusting another service to take care of the most important thing when making a digital product: the licensing, and they do it terribly
+In the end I want to express my sincere opinion: **Please for the love of god do not use keyauth in production-ready versions of your application, actually please do not use it at all,** all you're doing is trusting another service to take care of the most important thing when making a digital product: the licensing, and they do it terribly
