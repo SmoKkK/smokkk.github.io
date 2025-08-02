@@ -1,7 +1,7 @@
 ---
 title: "What makes an Anti-DDoS good?"
 date: 2025-08-03 02:00:00 +0000
-categories: [Useful Information]
+categories: [Guides]
 tags: [security]
 ---
 ## Context:
