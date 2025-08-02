@@ -1,5 +1,5 @@
 ---
-title: "Please don't use keyauth for your projects"
+title: "What makes an Anti-DDoS good?"
 date: 2025-08-03 02:00:00 +0000
 categories: [Useful Information]
 tags: [security]
