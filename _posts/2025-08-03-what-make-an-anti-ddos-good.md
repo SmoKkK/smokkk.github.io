@@ -25,7 +25,7 @@ Some ASNs are known for their lack of trustworthiness and common usage by bad ac
 
 *   [Massive Brute Force Attacks Originating from DigitalOcean IPs, Anyone Else Noticing This?](https://www.reddit.com/r/digital_ocean/comments/1h81q4m/massive_brute_force_attacks_originating_from/)
 *   [Thoughts on blocking Digital Ocean, Mailchimp and other problem Servers](https://community.spiceworks.com/t/thoughts-on-blocking-digital-ocean-mailchimp-and-other-problem-servers/816379)
-*   [Digital Ocean IP’s being blacklisted by more and more ESP’s](https://discourse.mailinabox.email/t/digital-ocean-ips-being-blacklisted-by-more-and-more-esps/8502)
+*   [Digital Ocean IP's being blacklisted by more and more ESP's](https://discourse.mailinabox.email/t/digital-ocean-ips-being-blacklisted-by-more-and-more-esps/8502)
 
 So, what should you do about it, and how can you know which ASNs actually have ill intentions and which are just undermanaged?
 
@@ -54,7 +54,7 @@ Some common signs are:
 *   High traffic from random or fake IPs
 *   Lots of TCP SYNs, no ACKs (incomplete handshakes)
 *   Inconsistent or strange TTL values
-*   Spoofed IPs don’t respond to pings
+*   Spoofed IPs don't respond to pings
 *   Sudden traffic spikes
 
 A very easy, but also easy to circumvent, solution is to enable reverse path filtering.
